@@ -1,0 +1,5 @@
+id;id_cliente;fecha;descripcion;estado
+1;1;2024-03-01;Mi ordenador hace ruidos raros;ABIERTA
+2;2;2024-03-02;La pantalla de la estrella de la muerte está en azul;ABIERTA
+3;2;2024-03-03;¡URGENTE! Fuego en la sala de servidores del ala oeste;ABIERTA
+4;3;2024-03-04;El ratón no funciona;CERRADA
