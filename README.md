@@ -1,25 +1,26 @@
-# TeSoportamos MLOps v2.0 🚀
+# TeSoportamos MLOps v3.0 🚀🧠
 
-**TeSoportamos** es un sistema de gestión de incidencias premium, diseñado con una arquitectura moderna de microservicios (Backend FastAPI + Frontend React) y capacidades de MLOps para la priorización inteligente de tickets.
+**TeSoportamos** es un sistema de gestión de incidencias premium, potenciado con **Inteligencia Artificial** para el análisis de sentimiento y la predicción de demanda. Diseñado con una arquitectura moderna de microservicios (Backend FastAPI + Frontend React).
 
-![TeSoportamos Banner](https://via.placeholder.com/1200x400?text=TeSoportamos+Premium+Dashboard)
+![TeSoportamos Banner](https://via.placeholder.com/1200x400?text=TeSoportamos+AI+Dashboard)
 
 ## ✨ Características Principales
 
-### 🧠 Inteligencia Artificial & MLOps
-- **Priorización Automática**: Un algoritmo de reglas (fácilmente escalable a ML) analiza la descripción de cada incidencia y asigna una prioridad (CRÍTICA, ALTA, MEDIA, NORMAL) en tiempo real.
-- **ETL Robusto**: Pipeline de extracción, transformación y carga (ETL) para procesar ficheros CSV masivos de Clientes e Incidencias, validando duplicados e integridad referencial.
+### 🧠 Inteligencia Artificial & MLOps (Nuevo en v3.0)
+- **Análisis de Sentimiento**: Detecta automáticamente si el cliente está enfadado (😡), neutro (😐) o feliz (😃) basándose en la descripción de la incidencia.
+- **Predicción de Demanda**: Modelo de Machine Learning (`RandomForest`) que predice el volumen de incidencias para los próximos 7 días basándose en datos históricos.
+- **Priorización Automática**: Algoritmo que asigna prioridad (CRÍTICA, ALTA, MEDIA, NORMAL) según palabras clave.
 
 ### 🎨 Frontend Premium (Mobile First)
 - **Diseño Glassmorphism**: Interfaz moderna con efectos de vidrio, gradientes y orbes animados.
 - **Animaciones GSAP**: Transiciones fluidas y efectos "wow" en cada interacción.
-- **100% Responsive**: Optimizado específicamente para dispositivos móviles (Galaxy S22) y escritorio.
-- **Dashboard BI**: Visualización de datos en tiempo real con gráficos de sectores y barras (Recharts).
+- **Dashboard BI Avanzado**: Gráficos de sentimiento, predicción de demanda, estado y prioridad.
+- **100% Responsive**: Optimizado para móviles y escritorio.
 
 ### 🛠️ Backend Potente
-- **FastAPI**: Alto rendimiento y documentación automática (Swagger UI).
-- **MySQL**: Persistencia de datos robusta y escalable.
-- **Arquitectura Limpia**: Separación de esquemas (Pydantic), modelos (SQLAlchemy) y lógica de negocio.
+- **FastAPI**: Alto rendimiento y documentación automática.
+- **MySQL**: Persistencia de datos robusta.
+- **ETL Integrado**: Carga masiva de datos con validación.
 
 ---
 
@@ -28,18 +29,16 @@
 ### Backend
 - **Lenguaje**: Python 3.10+
 - **Framework**: FastAPI
+- **ML/Data**: `scikit-learn`, `pandas`, `textblob`, `numpy`
 - **Base de Datos**: MySQL
 - **ORM**: SQLAlchemy
-- **Procesamiento de Datos**: Pandas
-- **Servidor**: Uvicorn
 
 ### Frontend
 - **Framework**: React 19 + Vite
 - **Lenguaje**: TypeScript
 - **Estilos**: Tailwind CSS v4
-- **Animaciones**: GSAP (GreenSock)
+- **Animaciones**: GSAP
 - **Gráficos**: Recharts
-- **Iconos**: Lucide React
 
 ---
 
@@ -49,7 +48,7 @@
 - Python 3.10+
 - Node.js 18+
 - MySQL Server (corriendo en localhost:3306)
-- Credenciales BD: Usuario `admin`, Contraseña `admin` (o configurar en `backend/main.py`)
+- Credenciales BD: Usuario `admin`, Contraseña `admin`
 
 ### 1. Configuración del Backend
 
@@ -62,8 +61,16 @@ python -m venv venv
 # Activar entorno (Windows)
 .\venv\Scripts\activate
 
-# Instalar dependencias
-pip install fastapi uvicorn sqlalchemy mysql-connector-python pandas python-multipart
+# Instalar dependencias (incluyendo ML)
+pip install fastapi uvicorn sqlalchemy mysql-connector-python pandas python-multipart scikit-learn textblob
+
+# Descargar corpus para análisis de sentimiento
+python -m textblob.download_corpora
+
+# (Opcional) Generar datos históricos para probar la predicción
+# Esto borrará la BD actual y creará 500 incidencias falsas
+python reset_db.py
+python dummy_data_generator.py
 
 # Iniciar servidor
 python -m uvicorn main:app --reload
@@ -81,29 +88,16 @@ npm install
 # Iniciar servidor de desarrollo
 npm run dev
 ```
-*El frontend correrá en `http://localhost:5175` (o el puerto que indique Vite)*
+*El frontend correrá en `http://localhost:5175`*
 
 ---
 
 ## 📖 Guía de Uso
 
-1.  **Menú Principal**: Navega a través de las tarjetas animadas para acceder a las funcionalidades.
-2.  **Carga Masiva (ETL)**:
-    *   Ve a "Carga Masiva".
-    *   Sube los archivos `clientes.csv` e `incidencias.csv`.
-    *   El sistema procesará los datos, evitará duplicados y asignará prioridades automáticamente.
-3.  **Listados**:
-    *   Ve a "Listados".
-    *   Busca un cliente por nombre o email.
-    *   Haz clic para ver su historial de incidencias ordenadas por fecha.
-4.  **Nueva Entrada**:
-    *   Crea nuevos clientes o incidencias manualmente.
-    *   La IA asignará la prioridad a la incidencia al momento de crearla.
-5.  **Actualizar Estado**:
-    *   Cambia el estado de una incidencia (ABIERTA -> CERRADA).
-    *   Recibe un mensaje de confirmación detallado con todos los datos de la operación.
-6.  **Dashboard BI**:
-    *   Visualiza métricas clave y distribución de incidencias por estado y prioridad.
+1.  **Dashboard BI**: Visualiza la predicción de demanda futura y el sentimiento de los clientes en tiempo real.
+2.  **Listado de Clientes**: Observa los emojis de sentimiento (😡/😐/😃) junto a cada incidencia.
+3.  **Nueva Incidencia**: Al crear una incidencia, el sistema calcula automáticamente su prioridad y sentimiento.
+4.  **Carga Masiva (ETL)**: Sube archivos CSV para procesar grandes volúmenes de datos.
 
 ---
 
@@ -111,19 +105,19 @@ npm run dev
 
 ```
 te_soportamos_mlops/
-├── backend/                # API FastAPI
-│   ├── main.py             # Punto de entrada y lógica
-│   ├── clientes.csv        # Datos de prueba
-│   └── incidencias.csv     # Datos de prueba
-├── frontend/               # App React
-│   ├── src/
-│   │   ├── components/     # Componentes reutilizables (Layout)
-│   │   ├── pages/          # Vistas (Menu, Dashboard, ETL, etc.)
-│   │   └── index.css       # Estilos globales Tailwind
+├── backend/
+│   ├── main.py                 # API y Lógica ML
+│   ├── dummy_data_generator.py # Generador de datos sintéticos
+│   ├── reset_db.py             # Utilidad para resetear BD
 │   └── ...
-└── README.md               # Documentación
+├── frontend/
+│   ├── src/
+│   │   ├── pages/              # DashboardBI, ClientListView, etc.
+│   │   └── ...
+│   └── ...
+└── README.md
 ```
 
 ---
 
-**Desarrollado por [Tu Nombre/Equipo]** - *TeSoportamos v2.0*
+**Desarrollado por [Tu Nombre/Equipo]** - *TeSoportamos v3.0*
